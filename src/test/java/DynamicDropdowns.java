@@ -16,9 +16,11 @@ public class DynamicDropdowns {
                         .xpath("//div[@id='glsctl00_mainContent_ddl_originStation1_CTNR']//a[@value='BLR']"))
                 .click();
         Thread.sleep(1000L);
-        driver.findElement(By.xpath("//div[@id='glsctl00_mainContent_ddl_destinationStation1_CTNR']//a[@value='DED']")).click();
+        driver.findElement(By
+                .xpath("//div[@id='glsctl00_mainContent_ddl_destinationStation1_CTNR']//a[@value='DED']")).click();
 
-        System.out.println("element text is: "+driver.findElement(By.id("ctl00_mainContent_ddl_destinationStation1_CTXT")).getAttribute("selectedtext"));
+        System.out.println("element text is: "+driver.findElement(By.id("ctl00_mainContent_ddl_destinationStation1_CTXT"))
+                .getAttribute("selectedtext"));
         driver.quit();
     }
 
