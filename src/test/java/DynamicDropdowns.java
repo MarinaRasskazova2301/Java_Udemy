@@ -6,15 +6,20 @@ public class DynamicDropdowns {
     public static void main(String[] args) throws InterruptedException {
 
         WebDriver driver = new ChromeDriver();
+
+        driver.manage().window().maximize();
         driver.get("https://rahulshettyacademy.com/dropdownsPractise/");
+        Thread.sleep(1000L);
+        driver.findElement(By.id("ctl00_mainContent_ddl_originStation1_CTXT")).click();
 
-        driver.findElement(By.id("ctl00_mainContent_ddl_originStation1")).click();
-        Thread.sleep(2000L);
         driver.findElement(By
-                .xpath("//div[@id='ctl00_mainContent_ddl_originStation1_CTNR']//a[@value='BLR']"))
+                        .xpath("//div[@id='glsctl00_mainContent_ddl_originStation1_CTNR']//a[@value='BLR']"))
                 .click();
+        Thread.sleep(1000L);
+        driver.findElement(By.xpath("//div[@id='glsctl00_mainContent_ddl_destinationStation1_CTNR']//a[@value='DED']")).click();
 
-
+        System.out.println("element text is: "+driver.findElement(By.id("ctl00_mainContent_ddl_destinationStation1_CTXT")).getAttribute("selectedtext"));
+        driver.quit();
     }
 
 }
