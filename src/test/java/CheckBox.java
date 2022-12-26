@@ -12,7 +12,20 @@ public class CheckBox {
         driver.get("https://rahulshettyacademy.com/dropdownsPractise/");
 
         WebElement roundTripRadiobutton = driver.findElement(By.cssSelector("input[value='RoundTrip']"));
+        WebElement departDateDatepicker=driver.findElement(By.id("Div1"));
+
+
+        //For this datepicker:
+        // style="display: block; opacity: 0.5;"  - if opacity=0.5 - it is disabled, if 1 - enabled
+        Assert.assertTrue(departDateDatepicker.getAttribute("style").contains("0.5"));
+
         roundTripRadiobutton.click();
+        Assert.assertTrue(departDateDatepicker.getAttribute("style").contains("1"));
+
+
+
+
+
 
         WebElement seniorCitizenCheckbox=driver.findElement(By.xpath("//input[contains(@id, 'SeniorCitizenDiscount')]"));
         seniorCitizenCheckbox.click();
