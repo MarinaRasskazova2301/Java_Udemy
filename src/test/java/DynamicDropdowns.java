@@ -18,9 +18,15 @@ public class DynamicDropdowns {
         Thread.sleep(1000L);
         driver.findElement(By
                 .xpath("//div[@id='glsctl00_mainContent_ddl_destinationStation1_CTNR']//a[@value='DED']")).click();
+ driver.findElement(By.cssSelector(".ui-state-default.ui-state-highlight")).click();
+
+
+
 
         System.out.println("element text is: "+driver.findElement(By.id("ctl00_mainContent_ddl_destinationStation1_CTXT"))
                 .getAttribute("selectedtext"));
+
+
         driver.quit();
     }
 
