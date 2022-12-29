@@ -19,17 +19,17 @@ public class Assignment1 {
 
         WebElement checkBoxOption1= driver.findElement(By.id("checkBoxOption1"));
 
-//        checkBoxOption1.click();
-//        Assert.assertTrue(checkBoxOption1.isSelected());
-//
-//        checkBoxOption1.click();
-//        Assert.assertFalse(checkBoxOption1.isSelected());
-//
-//        List<WebElement> allCheckboxes=driver.findElements(By.cssSelector("input[type='checkbox']"));
-//
-//        Assert.assertEquals(allCheckboxes.size(), 3);
-//
-//        driver.quit();
+        checkBoxOption1.click();
+        Assert.assertTrue(checkBoxOption1.isSelected());
+
+        checkBoxOption1.click();
+        Assert.assertFalse(checkBoxOption1.isSelected());
+
+        List<WebElement> allCheckboxes=driver.findElements(By.cssSelector("input[type='checkbox']"));
+
+        Assert.assertEquals(allCheckboxes.size(), 3);
+
+        driver.quit();
 
 
     }
