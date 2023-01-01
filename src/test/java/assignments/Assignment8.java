@@ -13,13 +13,13 @@ import java.time.Duration;
 import java.util.List;
 
 public class Assignment8 {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://rahulshettyacademy.com/AutomationPractice/");
 
         WebElement autosuggestiveDropdown = driver.findElement(By.cssSelector("input#autocomplete"));
-        String textEnterInDropdown="ar";
+        String textEnterInDropdown = "ar";
         autosuggestiveDropdown.sendKeys(textEnterInDropdown);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
@@ -28,15 +28,15 @@ public class Assignment8 {
 
         Actions a = new Actions(driver);
 
-        String countryName="Bulgaria";
-        for (WebElement item : autosuggestDropdownItems) {
-            if (item.getText().equalsIgnoreCase(countryName)) {
-                a.moveToElement(item).click().build().perform();
-                break;
-            }
-        }
+        String countryName = "Bulgaria";
 
-          Assert.assertEquals(autosuggestiveDropdown.getAttribute("value"), countryName);
+        autosuggestDropdownItems.stream()
+                .filter(country -> country.getText()
+                        .equals(countryName))
+                .forEach(country -> a.moveToElement(country)
+                        .click().build().perform());
+
+        Assert.assertEquals(autosuggestiveDropdown.getAttribute("value"), countryName);
         driver.quit();
     }
 }

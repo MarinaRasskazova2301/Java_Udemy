@@ -32,15 +32,11 @@ public class Assignment3 {
         driver.findElement(By.id("terms")).click();
         driver.findElement(By.id("signInBtn")).click();
 
-       wait.until(ExpectedConditions.urlContains("angularpractice/shop"));
+        wait.until(ExpectedConditions.urlContains("angularpractice/shop"));
 
-        List<WebElement> addButtonsAll=driver.findElements(By.cssSelector("div.card button.btn"));
+        List<WebElement> addButtonsAll = driver.findElements(By.cssSelector("div.card button.btn"));
 
-        for (WebElement addButton:addButtonsAll
-             ) {
-            addButton.click();
-        }
-
+        addButtonsAll.stream().forEach(addButton -> addButton.click());
         driver.findElement(By.cssSelector("a.nav-link.btn-primary")).click();
 
     }

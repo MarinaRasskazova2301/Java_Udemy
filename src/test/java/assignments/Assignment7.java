@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.List;
+
 public class Assignment7 {
     public static void main(String[] args) {
         WebDriver driver = new ChromeDriver();
@@ -17,13 +19,9 @@ public class Assignment7 {
         System.out.println("There are " + table.findElements(By.tagName("tr")).size() + " rows in table");
         System.out.println("There are " + table.findElements(By.cssSelector("tr th")).size() + " columns in table");
         System.out.println("The text in 2d row is: ");
-        // System.out.println(table.findElement(By.cssSelector("tr:nth-child(3)")).getText());
 
-        for (WebElement cell : table.findElements(By.tagName("tr")).get(2).findElements(By.tagName("td"))
-        ) {
-            System.out.print(cell.getText() + " | ");
-
-        }
+        List<WebElement> tableRow2 = table.findElements(By.tagName("tr")).get(2).findElements(By.tagName("td"));
+        tableRow2.stream().map(cell -> cell.getText()).forEach(cellText -> System.out.print(cellText + " "));
 
         driver.quit();
 
