@@ -4,18 +4,16 @@ import abstractComponents.AbstractComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class LandingPage extends AbstractComponent {
-    WebDriver driver;
+
+
+    public WebDriver driver;
 
     public LandingPage(WebDriver driver) {
         super(driver);
-        System.out.println("landing page constructor");
-        if (driver==null){
-            System.out.println("driver inlanding page constructor is null");
-        }
-        PageFactory.initElements(driver, this);
+        this.driver=driver;
+     //   PageFactory.initElements(driver, this);
     }
 
     @FindBy(id="userEmail")
@@ -27,14 +25,15 @@ public class LandingPage extends AbstractComponent {
     @FindBy(id="login")
     WebElement submit;
 
-       public void loginApplication (String email, String password){
+       public ProductCatalogue loginApplication (String email, String password){
 
         userEmailInput.sendKeys(email);
         passwordInput.sendKeys(password);
         submit.click();
+        return  new ProductCatalogue(driver);
     }
 
     public void goTo(){
-         driver.get("https://rahulshettyacademy.com/client/");
+       driver.get("https://rahulshettyacademy.com/client/");
        }
 }
