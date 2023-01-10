@@ -6,10 +6,10 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeMethod;
 import pages.LandingPage;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,7 +30,8 @@ public class BaseTest {
         Properties prop = new Properties();
         FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "//src//main//java//resources//GlobalData.properties");
         prop.load(fis);
-        String browserName = prop.getProperty("browser").toLowerCase(Locale.ROOT);
+
+        String browserName = System.getProperty("browser")!=null?System.getProperty("browser"):prop.getProperty("browser");
 
         switch (browserName) {
             case "chrome":
@@ -38,6 +39,9 @@ public class BaseTest {
                 break;
             case "firefox":
                 driver = new FirefoxDriver();
+                break;
+            case "edge":
+                driver=new EdgeDriver();
                 break;
             default:
                 driver = new ChromeDriver();

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SubmitOrderTest extends BaseTest {
 
-    String productName = "ZARA COAT 3";
+   // String productName;
 
     @Test(dataProvider = "getData", groups = {"Purchase"})
     public void submitOrder(HashMap<String,String> input) throws IOException, InterruptedException {
@@ -21,7 +21,8 @@ public class SubmitOrderTest extends BaseTest {
 //        ProductCatalogue productCatalogue = landingPage.loginApplication("mari4@gmail.com", "1234@qwE");
         ProductCatalogue productCatalogue = landingPage.loginApplication(input.get("email"), input.get("password"));
         List<WebElement> products = productCatalogue.getProductList();
-        productCatalogue.addProductToCart(productName);
+        productCatalogue.addProductToCart(input.get("product"));
+      //  productName=input.get("product");
         CartPage cardPage = productCatalogue.goToCardPage();
 
         Thread.sleep(1000);
@@ -34,14 +35,14 @@ public class SubmitOrderTest extends BaseTest {
         Assert.assertTrue(actualConfirmationMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
     }
 
-
-    @Test(dependsOnMethods = {"submitOrder"})
-    public void orderHistoryTest() throws InterruptedException {
+    @Test(dataProvider = "getData", dependsOnMethods = {"submitOrder"})
+    public void orderHistoryTest(HashMap<String,String> input) throws InterruptedException {
 
 //        ProductCatalogue productCatalogue = landingPage.loginApplication("mari4@gmail.com", "1234@qwE");
-        ProductCatalogue productCatalogue = landingPage.loginApplication("anshika@gmail.com", "Iamking@000");
+        ProductCatalogue productCatalogue = landingPage.loginApplication(input.get("email"), input.get("password"));
+
         OrdersPage ordersPage = productCatalogue.goToOrdersPage();
-        Assert.assertTrue(ordersPage.isOrderDisplayed(productName));
+        Assert.assertTrue(ordersPage.isOrderDisplayed(input.get("product")));
     }
 
 //    @DataProvider

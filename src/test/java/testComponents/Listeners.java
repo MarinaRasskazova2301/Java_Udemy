@@ -16,21 +16,23 @@ public class Listeners extends BaseTest implements ITestListener {
 
     ExtentTest test;
     ExtentReports extent = ExtentReporterNG.getReportObject();
+    ThreadLocal<ExtentTest> extentTest=new ThreadLocal();
 
     @Override
     public void onTestStart(ITestResult result) {
         test = extent.createTest(result.getMethod().getMethodName());
+        extentTest.set(test);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        test.log(Status.PASS, "Test passed");
+        extentTest.get().log(Status.PASS, "Test passed");
 
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        test.fail(result.getThrowable());
+        extentTest.get().fail(result.getThrowable());
         String filePath = null;
 
         try {
@@ -44,7 +46,7 @@ public class Listeners extends BaseTest implements ITestListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        test.addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
+        extentTest.get().addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
     }
 
     @Override
