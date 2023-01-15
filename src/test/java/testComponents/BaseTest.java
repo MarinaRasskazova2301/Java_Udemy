@@ -2,14 +2,17 @@ package testComponents;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeMethod;
 import pages.LandingPage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,22 +34,45 @@ public class BaseTest {
         FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "//src//main//java//resources//GlobalData.properties");
         prop.load(fis);
 
-        String browserName = System.getProperty("browser")!=null?System.getProperty("browser"):prop.getProperty("browser");
+        String browserName = System.getProperty("browser") != null ? System.getProperty("browser") : prop.getProperty("browser");
 
-        switch (browserName) {
-            case "chrome":
-                driver = new ChromeDriver();
-                break;
-            case "firefox":
-                driver = new FirefoxDriver();
-                break;
-            case "edge":
-                driver=new EdgeDriver();
-                break;
-            default:
-                driver = new ChromeDriver();
-                break;
+//        switch (browserName) {
+//            case "chrome":
+//                ChromeOptions options = new ChromeOptions();
+//                if (browserName.contains("headless")) {
+//                    options.addArguments("headless");
+//                }
+//
+//                driver = new ChromeDriver(options);
+//                break;
+//            case "firefox":
+//                driver = new FirefoxDriver();
+//                break;
+//            case "edge":
+//                driver = new EdgeDriver();
+//                break;
+//            default:
+//                driver = new ChromeDriver();
+//                break;
+//        }
+
+        if (browserName.contains("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            if (browserName.contains("headless")) {
+                options.addArguments("headless");
+            }
+
+            driver = new ChromeDriver(options);
+            driver.manage().window().setSize(new Dimension(1440, 900));
+        } else if (browserName.contains("firefox")) {
+            driver = new FirefoxDriver();
+        } else if (browserName.contains("edge")) {
+            driver = new EdgeDriver();
+        }else{
+            driver = new ChromeDriver();
         }
+
+
         driver.manage().window().maximize();
         return driver;
     }
@@ -76,9 +102,8 @@ public class BaseTest {
 
     }
 
-    public String getScreenshot(String testCaseName, WebDriver driver) throws IOException
-    {
-        TakesScreenshot ts = (TakesScreenshot)driver;
+    public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
+        TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         File file = new File(System.getProperty("user.dir") + "//reports//" + testCaseName + ".png");
         FileUtils.copyFile(source, file);

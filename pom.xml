@@ -99,7 +99,7 @@
 
         <profile>
             <id>
-                testNg
+                AllTests
             </id>
             <build>
                 <pluginManagement>
